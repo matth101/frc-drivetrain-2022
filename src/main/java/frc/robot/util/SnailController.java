@@ -14,8 +14,8 @@ public class SnailController extends XboxController {
         return new JoystickButton(this, id);
     }
 
-    public XboxTrigger getTrigger() {
-        return new XboxTrigger(this);
+    public XboxTrigger getTrigger(boolean leftHand) {
+        return new XboxTrigger(this, leftHand);
     }
 
     public enum DPad {
