@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController.ArbFFUnits;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -51,6 +52,8 @@ public class Drivetrain extends SnailSubsystem {
 
     private DifferentialDriveKinematics driveKinematics;
     private DifferentialDriveOdometry driveOdometry;
+
+    // private DifferentialDrive drivetrain;
 
     /**
      * MANUAL_DRIVE - uses joystick inputs as direct inputs into an arcade drive setup
@@ -104,6 +107,9 @@ public class Drivetrain extends SnailSubsystem {
         // - to make + be ccw
         driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(-Gyro.getInstance().getRobotAngle()));
 
+        pathTimer = new Timer();
+
+        // drivetrain = new DifferentialDrive(frontLeftMotor, frontRightMotor);
         reset();
     }
 
@@ -131,6 +137,9 @@ public class Drivetrain extends SnailSubsystem {
 
         backLeftMotor.follow(frontLeftMotor);
         backRightMotor.follow(frontRightMotor);
+
+        frontRightMotor.setInverted(true);
+        backRightMotor.setInverted(true);
     }
 
     // configure all encoder settings and conversion factors
@@ -191,6 +200,8 @@ public class Drivetrain extends SnailSubsystem {
                 double[] arcadeSpeeds = ArcadeDrive.arcadeDrive(adjustedSpeedForward, adjustedSpeedTurn);
                 frontLeftMotor.set(arcadeSpeeds[0]);
                 frontRightMotor.set(arcadeSpeeds[1]);
+
+                // drivetrain.arcadeDrive(speedForward, speedTurn);
                 break;
             }
             case VELOCITY_DRIVE: {
