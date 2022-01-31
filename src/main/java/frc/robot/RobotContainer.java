@@ -51,7 +51,7 @@ public class RobotContainer {
         
         outputCounter = 0;
 
-        SmartDashboard.putBoolean("Testing", false);
+        SmartDashboard.putBoolean("Testing", true);
 
         updateNotifier = new Notifier(this::update);
         updateNotifier.startPeriodic(UPDATE_PERIOD);
@@ -62,10 +62,10 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         drivetrain = new Drivetrain();
-        drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward,
-            driveController::getDriveTurn));
-        // drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward,
+        // drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward,
         //     driveController::getDriveTurn));
+        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward,
+            driveController::getDriveTurn));
 
         subsystems = new ArrayList<>();
         subsystems.add(drivetrain);
@@ -78,9 +78,9 @@ public class RobotContainer {
         driveController.getButton(Button.kStart.value).whenPressed(new ToggleReverseCommand(drivetrain));
         driveController.getButton(Button.kBack.value).whenPressed(new ToggleSlowTurnCommand(drivetrain));
 
-        driveController.getButton(Button.kY.value).whileHeld(new DriveDistanceCommand(drivetrain, 1.0));
-        driveController.getButton(Button.kX.value).whileHeld(new TurnAngleCommand(drivetrain, 90.0));
-        driveController.getButton(Button.kB.value).whileHeld(new DriveDistanceProfiledCommand(drivetrain, 1.0));
+        // driveController.getButton(Button.kY.value).whileHeld(new DriveDistanceCommand(drivetrain, 1.0));
+        // driveController.getButton(Button.kX.value).whileHeld(new TurnAngleCommand(drivetrain, 90.0));
+        // driveController.getButton(Button.kB.value).whileHeld(new DriveDistanceProfiledCommand(drivetrain, 1.0));
     }
 
     /**
