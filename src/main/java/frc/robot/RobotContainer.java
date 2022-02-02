@@ -1,11 +1,21 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.drivetrain.DriveDistanceCommand;
 import frc.robot.commands.drivetrain.DriveDistanceProfiledCommand;
+import frc.robot.commands.drivetrain.DriveTrajectoryCommand;
 import frc.robot.commands.drivetrain.ManualDriveCommand;
 import frc.robot.commands.drivetrain.ToggleReverseCommand;
 import frc.robot.commands.drivetrain.ToggleSlowTurnCommand;
@@ -16,9 +26,11 @@ import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.util.SnailController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
+import static frc.robot.Constants.Drivetrain.*;
 import static frc.robot.Constants.UPDATE_PERIOD;;
 
 /**
@@ -78,6 +90,25 @@ public class RobotContainer {
         driveController.getButton(Button.kStart.value).whenPressed(new ToggleReverseCommand(drivetrain));
         driveController.getButton(Button.kBack.value).whenPressed(new ToggleSlowTurnCommand(drivetrain));
 
+        var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(0.22, 1.5, 0.2),
+            new DifferentialDriveKinematics(0.635), 10);
+
+        TrajectoryConfig config = new TrajectoryConfig(DRIVE_TRAJ_MAX_VEL, DRIVE_TRAJ_MAX_ACC)
+            .setKinematics(new DifferentialDriveKinematics(0.635))
+            .addConstraint(autoVoltageConstraint);
+
+        Trajectory testTraj = TrajectoryGenerator.generateTrajectory(
+            new Pose2d(0, 0, new Rotation2d(0)),
+            List.of(
+                new Translation2d(1, 1),
+                 new Translation2d(2, -1)
+            ),
+            new Pose2d(2, 0, new Rotation2d(0)), 
+            config);
+
+        driveController.getButton(Button.kA.value).whenPressed(new DriveTrajectoryCommand(drivetrain, testTraj).andThen(() -> drivetrain.manualDrive(0, 0)));        
+   
         // driveController.getButton(Button.kY.value).whileHeld(new DriveDistanceCommand(drivetrain, 1.0));
         // driveController.getButton(Button.kX.value).whileHeld(new TurnAngleCommand(drivetrain, 90.0));
         // driveController.getButton(Button.kB.value).whileHeld(new DriveDistanceProfiledCommand(drivetrain, 1.0));
@@ -94,6 +125,7 @@ public class RobotContainer {
      * Do the logic to return the auto command to run
      */
     public Command getAutoCommand() {
+        
         return null;
     }
 

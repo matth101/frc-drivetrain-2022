@@ -37,12 +37,13 @@ public final class Constants {
 
         // closed loop driving
         public static double DRIVE_CLOSED_MAX_VEL = 3.5; // m/s
-        public static double DRIVE_CLOSED_MAX_ROT = 100.0; // deg/s
+        public static double DRIVE_CLOSED_MAX_ROT_TELEOP = 360.00; //
+        public static double DRIVE_CLOSED_MAX_ROT_AUTO = 100.0; // deg/s
         public static double DRIVE_CLOSED_MAX_ACC = 1.25; // m/s^2
         
         // trajectory following
-        public static double DRIVE_TRAJ_MAX_VEL = 2.0; // m/s
-        public static double DRIVE_TRAJ_MAX_ACC = 3.0; // m/s^2
+        public static double DRIVE_TRAJ_MAX_VEL = 0.5; // m/s
+        public static double DRIVE_TRAJ_MAX_ACC = 1.25; // m/s^2
         public static double DRIVE_TRAJ_RAMSETE_B = 2.0;
         public static double DRIVE_TRAJ_RAMSETE_ZETA = 0.7;
 
@@ -59,10 +60,10 @@ public final class Constants {
 
         // velocity PID (for closed loop, profiling, and trajectory)
         public static int DRIVE_VEL_SLOT = 0;
-        public static double DRIVE_VEL_LEFT_P = 0.2;
-        public static double DRIVE_VEL_LEFT_F = 0.25;
-        public static double DRIVE_VEL_RIGHT_P = 0.2;
-        public static double DRIVE_VEL_RIGHT_F = 0.25;
+        public static double DRIVE_VEL_LEFT_P = 0.15;
+        public static double DRIVE_VEL_LEFT_F = 0.20;
+        public static double DRIVE_VEL_RIGHT_P = 0.15;
+        public static double DRIVE_VEL_RIGHT_F = 0.20;
 
         // profiling position PID (for further refinement of tracking)
         public static double DRIVE_PROFILE_LEFT_P = 0.1;

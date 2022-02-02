@@ -208,7 +208,7 @@ public class Drivetrain extends SnailSubsystem {
                 double adjustedSpeedTurn = slowTurnEnabled ? speedTurn * DRIVE_SLOW_TURN_MULT : speedTurn;
 
                 // apply negative sign to turn speed because WPILib uses left as positive
-                ChassisSpeeds chassisSpeeds = new ChassisSpeeds(adjustedSpeedForward, 0, Math.toRadians(-adjustedSpeedTurn));
+                ChassisSpeeds chassisSpeeds = new ChassisSpeeds(adjustedSpeedForward * DRIVE_CLOSED_MAX_VEL, 0, Math.toRadians(-adjustedSpeedTurn * DRIVE_CLOSED_MAX_ROT_TELEOP));
                 DifferentialDriveWheelSpeeds wheelSpeeds = driveKinematics.toWheelSpeeds(chassisSpeeds);
 
                 leftPIDController.setReference(wheelSpeeds.leftMetersPerSecond, ControlType.kVelocity, DRIVE_VEL_SLOT);
@@ -332,12 +332,12 @@ public class Drivetrain extends SnailSubsystem {
     }
 
     // speeds should be between in real life units (m/s and deg/s)
-    // speedForward: - = backward, + = forward
-    // speedTurn: - = ccw, + = cw
+    // speedForward: - = backward, + \= forward
+    // speedTurn: - = ccw, + = cw chang was here
     public void velocityDrive(double speedForward, double speedTurn) {
         this.speedForward = speedForward;
         this.speedTurn = speedTurn;
-
+        
         defaultState = State.VELOCITY_DRIVE;
         state = State.VELOCITY_DRIVE;
     }
@@ -482,7 +482,7 @@ public class Drivetrain extends SnailSubsystem {
         SmartDashboard.putNumber("Drive Slow Turn Mult", DRIVE_SLOW_TURN_MULT);
 
         SmartDashboard.putNumber("Drive Closed Max Vel", DRIVE_CLOSED_MAX_VEL);
-        SmartDashboard.putNumber("Drive Closed Max Rot", DRIVE_CLOSED_MAX_ROT);
+        SmartDashboard.putNumber("Drive Closed Max Rot", DRIVE_CLOSED_MAX_ROT_AUTO);
 
         SmartDashboard.putNumber("Drive Traj Max Vel", DRIVE_TRAJ_MAX_VEL);
         SmartDashboard.putNumber("Drive Traj Max Acc", DRIVE_TRAJ_MAX_ACC);
@@ -512,7 +512,7 @@ public class Drivetrain extends SnailSubsystem {
         DRIVE_SLOW_TURN_MULT = SmartDashboard.getNumber("Drive Slow Turn Mult", DRIVE_SLOW_TURN_MULT);
 
         DRIVE_CLOSED_MAX_VEL = SmartDashboard.getNumber("Drive Closed Max Vel", DRIVE_CLOSED_MAX_VEL);
-        DRIVE_CLOSED_MAX_ROT = SmartDashboard.getNumber("Drive Closed Max Rot", DRIVE_CLOSED_MAX_ROT);
+        DRIVE_CLOSED_MAX_ROT_AUTO = SmartDashboard.getNumber("Drive Closed Max Rot", DRIVE_CLOSED_MAX_ROT_AUTO);
 
         DRIVE_TRAJ_MAX_VEL = SmartDashboard.getNumber("Drive Traj Max Vel", DRIVE_TRAJ_MAX_VEL);
         DRIVE_TRAJ_MAX_ACC = SmartDashboard.getNumber("Drive Traj Max Acc", DRIVE_TRAJ_MAX_ACC);
