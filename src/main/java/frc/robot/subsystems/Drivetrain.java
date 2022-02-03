@@ -424,9 +424,11 @@ public class Drivetrain extends SnailSubsystem {
                     // do nothing
                     break;
                 case VELOCITY_DRIVE:
-                    SmartDashboard.putNumberArray("Drive Velocity PID (Lv, Rv, Ls, Rs)", new double[] {
-                        leftEncoder.getVelocity(), rightEncoder.getVelocity(),
-                        testingTargetLeftSpeed, testingTargetRightSpeed
+                    SmartDashboard.putNumberArray("Drive Velocity PID (Lv, Ls)", new double[] {
+                        leftEncoder.getVelocity(), testingTargetLeftSpeed
+                    });
+                    SmartDashboard.putNumberArray("Drive Velocity PID (Rv, Rs)", new double[] {
+                        rightEncoder.getVelocity(), testingTargetLeftSpeed
                     });
                     break;
                 case DRIVE_DIST:

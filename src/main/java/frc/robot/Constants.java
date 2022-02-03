@@ -63,7 +63,7 @@ public final class Constants {
         public static double DRIVE_VEL_LEFT_P = 0.15;
         public static double DRIVE_VEL_LEFT_F = 0.20;
         public static double DRIVE_VEL_RIGHT_P = 0.15;
-        public static double DRIVE_VEL_RIGHT_F = 0.20;
+        public static double DRIVE_VEL_RIGHT_F = 0.25;
 
         // profiling position PID (for further refinement of tracking)
         public static double DRIVE_PROFILE_LEFT_P = 0.1;
