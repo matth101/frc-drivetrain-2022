@@ -16,10 +16,10 @@ public final class Constants {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
 
-        public final static int DRIVE_FRONT_LEFT = 11;
-        public final static int DRIVE_FRONT_RIGHT = 13;
-        public final static int DRIVE_BACK_LEFT = 1;
-        public final static int DRIVE_BACK_RIGHT = 7;
+        public final static int DRIVE_FRONT_LEFT = 15;
+        public final static int DRIVE_FRONT_RIGHT = 3;
+        public final static int DRIVE_BACK_LEFT = 5;
+        public final static int DRIVE_BACK_RIGHT = 17;
     }
 
     public static class Autonomous {

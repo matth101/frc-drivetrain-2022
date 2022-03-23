@@ -74,10 +74,10 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         drivetrain = new Drivetrain();
-        // drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward,
-        //     driveController::getDriveTurn));
-        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward,
+        drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward,
             driveController::getDriveTurn));
+        // drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward,
+        //     driveController::getDriveTurn));
 
         subsystems = new ArrayList<>();
         subsystems.add(drivetrain);
@@ -85,6 +85,7 @@ public class RobotContainer {
 
     /**
      * Define button -> command mappings.
+     * CHang was here 2/7/2022
      */
     private void configureButtonBindings() {
         driveController.getButton(Button.kStart.value).whenPressed(new ToggleReverseCommand(drivetrain));
