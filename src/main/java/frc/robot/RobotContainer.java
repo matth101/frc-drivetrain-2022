@@ -74,8 +74,9 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         drivetrain = new Drivetrain();
-        drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward,
-            driveController::getDriveTurn));
+        drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn,
+            driveController.getTrigger(false)::get, true));
+
         // drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward,
         //     driveController::getDriveTurn));
 
@@ -108,7 +109,7 @@ public class RobotContainer {
             new Pose2d(2, 0, new Rotation2d(0)), 
             config);
 
-        driveController.getButton(Button.kA.value).whenPressed(new DriveTrajectoryCommand(drivetrain, testTraj).andThen(() -> drivetrain.manualDrive(0, 0)));        
+        // driveController.getButton(Button.kA.value).whenPressed(new DriveTrajectoryCommand(drivetrain, testTraj).andThen(() -> drivetrain.manualDrive(0, 0)));        
    
         // driveController.getButton(Button.kY.value).whileHeld(new DriveDistanceCommand(drivetrain, 1.0));
         // driveController.getButton(Button.kX.value).whileHeld(new TurnAngleCommand(drivetrain, 90.0));
@@ -154,11 +155,15 @@ public class RobotContainer {
         for(SnailSubsystem subsystem : subsystems) {
             subsystem.tuningInit();
         }
+        // Limelight.setConstantTuning();
+
     }
 
     public void tuningPeriodic() {
         if(outputCounter % 3 == 0) {
             subsystems.get(outputCounter / 3).tuningPeriodic();
         }
+        // Limelight.getConstantTuning();
+
     }
 }

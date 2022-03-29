@@ -69,6 +69,11 @@ public final class Constants {
         public static double DRIVE_PROFILE_LEFT_P = 0.1;
         public static double DRIVE_PROFILE_RIGHT_P = 0.1;
     }
+
+    public static class Vision {
+        public static double VISION_KP = 0.020;
+        public static double VISION_FEEDFORWARD = 0.05;
+    }
     
     // NEO Constants
     public static int NEO_CURRENT_LIMIT = 80;
